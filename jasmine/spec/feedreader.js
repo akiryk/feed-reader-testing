@@ -71,18 +71,15 @@ $(function() {
      * @param {function} done
      */
     beforeEach(function(done){
-      loadFeed(1, function(){
-        done();
-      });
+      loadFeed(1, done);
     });
 
     /* Test that the feed entries load correctly and display something rather
      * than nothing. Do this by checking that there are 1 or more entries
      * based on the presense of elements with a class of '.entry'
      */
-    it('should have at least one .entry element in the .feed container', function(done){
-      expect($('.entry').length > 0).toBe(true);
-      done();
+    it('should have at least one .entry element in the .feed container', function(){
+      expect(document.querySelectorAll('.feed .entry').length > 0).toBe(true);
     });
 
   });
@@ -91,8 +88,7 @@ $(function() {
   describe('New Feed Selection', function(){
 
     var firstEntry,
-        secondEntry,
-        feedURL;
+        secondEntry;
 
     /* Since this is an asynchronous function call, use the done() function.
      * Load first one feed and then another, capturing the contents of the
@@ -101,23 +97,21 @@ $(function() {
      */
     beforeEach(function(done){
       loadFeed(0, function(){
-        firstEntry = $('.entry').eq(0);
-        done();
+        firstEntry = document.querySelector('.feed .entry').innerText;
+        loadFeed(1, function(){
+          secondEntry = document.querySelector('.feed .entry').innerText;
+          done();
+        })
       });
-      loadFeed(1, function(){
-        secondEntry = $('.entry').eq(0);
-        feedURL = allFeeds[1].url;
-        done();
-      })
+
     });
 
     /* Compare the contents of the first entry from the first feed with the
      * first entry from the second feed. These should be different since
      * they are from different feeds.
      */
-    it('should replace content from the first feed when loading a new feed', function(done){
+    it('should replace content from the first feed when loading a new feed', function(){
       expect(firstEntry).not.toBe(secondEntry);
-      done();
     });
 
   });
@@ -144,21 +138,19 @@ $(function() {
     /* Extra Test #1
      * To pass, the app must load and display teaser content for each entry
      */
-    it('should display for each entry', function(done){
+    xit('should display for each entry', function(){
       expect($firstParagraphText.length > 0).toBe(true);
-      done();
     });
 
     /* Extra Test #2
      * To pass, the app needs to load teaser content for each entry and
      * clean it up so it doesn't include HTML tags.
      */
-    it('should display just text without html tags such as <p> or <a> or <em>', function(done){
+    xit('should display just text without html tags such as <p> or <a> or <em>', function(){
       expect($firstParagraphText.length > 0).toBe(true);
       expect($firstParagraphText.indexOf('</p>') < 0).toBe(true);
       expect($firstParagraphText.indexOf('</a>') < 0).toBe(true);
       expect($firstParagraphText.indexOf('</em>') < 0).toBe(true);
-      done();
     });
 
   });
