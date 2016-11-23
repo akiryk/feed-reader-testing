@@ -5,7 +5,9 @@ This project is a feed reader that loads an RSS feed, displays headlines, and pr
 ## Installation and Usage
 
 To install, simply navigate to `your/directory/of/choice` and clone the git repo like so:
+
     git clone https://github.com/akiryk/feed-reader-testing.git
+
 Then navigate to the feed-reader-testing directory and open index.html in your browser. You should see headlines from CSS Tricks. It's been tested on Chrome, Firefox, and Safari on a Mac. Several Jasmine tests will run and a few of them will fail. This is okay, since the project is designed according to test driven development methods. That is, it tests for a few things that the application doesn't currently do. Once the application has been developed further, those tests should pass.
 
 ## Tests
